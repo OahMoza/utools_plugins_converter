@@ -15,47 +15,37 @@
       "inputSchema": {
         "type": "object",
         "properties": {
-          "input": { "type": "string", "description": "源格式文本内容" },
-          "sourceFormat": { "type": "string", "description": "源格式：json|yaml|toml|xml|csv|markdown|mysql|sparksql" },
-          "targetFormat": { "type": "string", "description": "目标格式：json|yaml|toml|xml|csv|markdown|mysql|sparksql" },
-          "options": { "type": "object", "description": "目标格式选项（可选），如 csv 的 delimiter、yaml 的 indent、mysql 的 tableName 等" }
+          "input": {
+            "type": "string",
+            "description": "源格式文本内容"
+          },
+          "sourceFormat": {
+            "type": "string",
+            "description": "源格式：json|yaml|toml|xml|csv|markdown|mysql|sparksql"
+          },
+          "targetFormat": {
+            "type": "string",
+            "description": "目标格式：json|yaml|toml|xml|csv|markdown|mysql|sparksql"
+          },
+          "options": {
+            "type": "object",
+            "description": "目标格式选项（可选），如 csv 的 delimiter、yaml 的 indent、mysql 的 tableName 等"
+          }
         },
-        "required": ["input", "sourceFormat", "targetFormat"]
+        "required": [
+          "input",
+          "sourceFormat",
+          "targetFormat"
+        ]
       }
     }
   },
   "features": [
     {
-      "code": "format-main",
-      "explain": "格式转换套件 — 通用格式互转入口（JSON / Markdown / 其他）",
+      "code": "format-converter",
+      "explain": "格式转换套件 — JSON/YAML/TOML/XML/CSV/MySQL/SparkSQL 双向互转",
       "cmds": [
-        "converter",
-        "格式转换",
-        "json转换",
-        "json",
-        "markdown"
-      ]
-    },
-    {
-      "code": "format-sql",
-      "explain": "格式转换套件 — SQL 类格式（MySQL / SparkSQL / HiveSQL，含分区）",
-      "cmds": [
-        "mysql",
-        "sparksql",
-        "spark",
-        "hive",
-        "partition"
-      ]
-    },
-    {
-      "code": "format-data",
-      "explain": "格式转换套件 — 数据标记格式（YAML / TOML / XML / CSV / XLSX）",
-      "cmds": [
-        "yaml",
-        "toml",
-        "xml",
-        "csv",
-        "xlsx"
+        "converter"
       ]
     }
   ]

@@ -20,8 +20,8 @@ import { useReducer, useCallback } from 'react'
  */
 export function createInitialState(data, columns) {
   return {
-    displayData: data,
-    columns: [...columns],
+    displayData: data || [],
+    columns: Array.isArray(columns) ? [...columns] : [],
     isDirty: false,
     editingCell: null,
     editValue: ''

@@ -180,3 +180,16 @@ test('空数据集行为：初始干净、可添加行、越界删除安全', ()
   assert.deepEqual(reset.displayData, [])
   assert.equal(reset.isDirty, false)
 })
+
+test('createInitialState: 防御非数组 columns 参数', () => {
+  // columns 为 undefined/null/非数组时应返回空数组，不抛错
+  const s1 = createInitialState([], undefined)
+  assert.deepEqual(s1.columns, [])
+  const s2 = createInitialState([], null)
+  assert.deepEqual(s2.columns, [])
+  const s3 = createInitialState([], 'invalid')
+  assert.deepEqual(s3.columns, [])
+  const s4 = createInitialState(null, undefined)
+  assert.deepEqual(s4.displayData, [])
+  assert.deepEqual(s4.columns, [])
+})

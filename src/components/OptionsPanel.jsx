@@ -1,60 +1,9 @@
 // OptionsPanel —— 按目标格式动态渲染的选项面板
 import { Button } from '@ztools/ui-kit/Button'
 import { IconSettings } from '../Icons.jsx'
+import { getOptionsForFormat } from './formatOptions.js'
 
 export default function OptionsPanel({ targetFormat, options, onChange, onOpenTypeEditor }) {
-  const getOptionsForFormat = (format) => {
-    switch (format) {
-      case 'yaml':
-        return [
-          { key: 'indent', label: '缩进', type: 'select', options: [{ label: '2 空格', value: 2 }, { label: '4 空格', value: 4 }] }
-        ]
-      case 'csv':
-        return [
-          { key: 'delimiter', label: '分隔符', type: 'select', options: [{ label: '逗号', value: ',' }, { label: '分号', value: ';' }, { label: '制表符', value: '\t' }] },
-          { key: 'header', label: '表头', type: 'switch' }
-        ]
-      case 'markdown':
-        return [
-          { key: 'alignment', label: '对齐', type: 'select', options: [{ label: '左对齐', value: 'left' }, { label: '居中', value: 'center' }, { label: '右对齐', value: 'right' }] }
-        ]
-      case 'mysql':
-        return [
-          { key: 'database', label: '数据库', type: 'text' },
-          { key: 'tableName', label: '表名', type: 'text' },
-          { key: 'batchMode', label: '批量模式', type: 'switch' },
-          {
-            key: 'nullHandling', label: 'NULL处理', type: 'select', options: [
-              { label: 'NULL (无引号)', value: 'NULL' },
-              { label: '空字符串', value: 'empty_string' },
-              { label: '跳过该列', value: 'skip_column' }
-            ]
-          },
-          { key: 'includeCreateTable', label: '包含建表语法', type: 'switch' }
-        ]
-      case 'sparksql':
-        return [
-          { key: 'database', label: '数据库', type: 'text' },
-          { key: 'tableName', label: '表名', type: 'text' },
-          { key: 'writeMode', label: '写入模式', type: 'select', options: [{ label: 'INSERT INTO', value: 'into' }, { label: 'INSERT OVERWRITE', value: 'overwrite' }] },
-          { key: 'batchMode', label: '批量模式', type: 'switch' },
-          { key: 'partitionMode', label: '分区模式', type: 'select', options: [{ label: '静态分区', value: 'static' }, { label: '动态分区', value: 'dynamic' }] },
-          { key: 'staticPartition', label: '静态分区表达式', type: 'text' },
-          { key: 'partitionColumns', label: '动态分区列', type: 'text' },
-          { key: 'includeCreateTable', label: '包含建表语法', type: 'switch' }
-        ]
-      case 'toml':
-        return [{ key: 'wrapper', label: '包装字段', type: 'text' }]
-      case 'xml':
-        return [
-          { key: 'rootName', label: '根节点', type: 'text' },
-          { key: 'itemName', label: '数组项', type: 'text' }
-        ]
-      default:
-        return []
-    }
-  }
-
   const formatOptions = getOptionsForFormat(targetFormat)
 
   if (formatOptions.length === 0) return null

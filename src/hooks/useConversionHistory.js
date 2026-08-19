@@ -5,6 +5,23 @@ import { useState, useEffect, useCallback } from 'react'
 const KEY = 'format-converter:history'
 const MAX = 30
 
+/**
+ * 纯函数：把一条新记录添加到历史列表。
+ *  - 按 (sourceFormat, targetFormat) 去重（移除旧的同路径记录）
+ *  - 新记录前置插入
+ *  - 截断到 max 条（默认 MAX=30）
+ * @param {Array} prev 当前历史
+ * @param {Object} entry 新记录 { id, sourceFormat, targetFormat, rowCount, createdAt }
+ * @param {number} max 上限
+ * @returns {Array} 新历史数组（不可变）
+ */
+export function addRecordToList(prev, entry, max = MAX) {
+  const filtered = prev.filter(
+    e => !(e.sourceFormat === entry.sourceFormat && e.targetFormat === entry.targetFormat)
+  )
+  return [entry, ...filtered].slice(0, max)
+}
+
 function load(fallback) {
   try {
     if (typeof window !== 'undefined' && window.utools?.dbStorage) {
@@ -41,10 +58,7 @@ export default function useConversionHistory() {
       rowCount,
       createdAt: Date.now()
     }
-    setHistory(prev => {
-      const filtered = prev.filter(e => !(e.sourceFormat === sourceFormat && e.targetFormat === targetFormat))
-      return [entry, ...filtered].slice(0, MAX)
-    })
+    setHistory(prev => addRecordToList(prev, entry))
   }, [])
 
   const clearHistory = useCallback(() => setHistory([]), [])

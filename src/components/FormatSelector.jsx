@@ -1,17 +1,5 @@
 // FormatSelector —— 源/目标格式下拉选择器
-const FORMATS = ['json', 'yaml', 'toml', 'xml', 'csv', 'markdown', 'xlsx', 'mysql', 'sparksql']
-
-const FORMAT_LABELS = {
-  json: { short: 'JSON' },
-  yaml: { short: 'YAML' },
-  toml: { short: 'TOML' },
-  xml: { short: 'XML' },
-  csv: { short: 'CSV' },
-  xlsx: { short: 'XLSX' },
-  markdown: { short: 'MD' },
-  mysql: { short: 'MySQL' },
-  sparksql: { short: 'HiveSQL' }
-}
+import { FORMATS, FORMAT_LABELS } from './formatOptions.js'
 
 export default function FormatSelector({ value, onChange, label, disabledFormats = [] }) {
   const formats = FORMATS.filter(f => !disabledFormats.includes(f))

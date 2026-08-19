@@ -1,0 +1,28 @@
+{
+  "name": "@ztools/ui-kit",
+  "version": "2.0.0",
+  "type": "module",
+  "description": "uTools 插件设计系统：design tokens（light/dark） + 公共组件 + 暗色初始化",
+  "main": "./src/index.js",
+  "module": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./tokens.css": "./src/tokens.css",
+    "./components/components.css": "./src/components/components.css",
+    "./init": "./src/init.js",
+    "./Button": "./src/components/Button.jsx",
+    "./Input": "./src/components/Input.jsx",
+    "./Textarea": "./src/components/Input.jsx",
+    "./Card": "./src/components/Card.jsx",
+    "./Toolbar": "./src/components/Card.jsx",
+    "./Pane": "./src/components/Card.jsx",
+    "./App": "./src/App.jsx",
+    "./Hello": "./src/Hello/index.jsx",
+    "./Read": "./src/Read/index.jsx",
+    "./Write": "./src/Write/index.jsx"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}

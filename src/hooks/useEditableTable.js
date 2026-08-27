@@ -1,5 +1,5 @@
 // useEditableTable.js — 表格编辑状态机 Hook
-import { useReducer, useCallback } from 'react'
+import { useReducer, useCallback, useEffect, useRef } from 'react'
 
 /** @typedef {Record<string, any>} RowData */
 /** @typedef {{ row: number; col: string }} CellCoord */
@@ -150,6 +150,19 @@ export function useEditableTable(initialData, columns) {
     { data: initialData, columns },
     ({ data, cols }) => createInitialState(data, cols)
   )
+
+  // Re-sync when the parent passes new source data. The reducer initializer
+  // only runs once on mount, so without this the preview would stay frozen on
+  // the initial empty state forever. Guard on reference identity so we reset
+  // only when the data actually changes — never on every render, and never
+  // when the parent re-renders with the same array.
+  const prevDataRef = useRef(initialData)
+  useEffect(() => {
+    if (prevDataRef.current !== initialData) {
+      prevDataRef.current = initialData
+      dispatch({ type: 'RESET', data: initialData, columns })
+    }
+  }, [initialData, columns])
 
   const startEdit = useCallback((row, col) => {
     dispatch({ type: 'START_EDIT', row, col })
